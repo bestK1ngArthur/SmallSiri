@@ -1,9 +1,10 @@
 Package: ru.bestk1ng.smallsiri
 Name: SmallSiri
 Depends: mobilesubstrate
-Version: 1.2.3
 Architecture: iphoneos-arm
 Description: Make siri smaller and unobtrusive!
 Maintainer: bestK1ng
 Author: Muirey03
 Section: Tweaks
+Version: 1.2.3-1+debug
+Installed-Size: 612

@@ -1,3 +1,4 @@
+#define domain @"ru.bestk1ng.smallsiri"
 #define kWidth [UIScreen mainScreen].bounds.size.width
 #define kHeight [UIScreen mainScreen].bounds.size.height
 #define isX (kHeight >= 812)
@@ -44,6 +45,9 @@
 -(id)objectForKey:(id)arg1 inDomain:(id)arg2 ;
 @end
 
+static NSString* turnOnKey = @"turnOn";
+static NSString* bottomModeKey = @"bottomMode";
+
 static CGFloat yChange = 0;
 static UISwipeGestureRecognizer* swipeUpGesture;
 static UISwipeGestureRecognizer* swipeDownGesture;
@@ -57,7 +61,7 @@ static UIView* sbSuperview;
 
 static BOOL getPrefBool(NSString* key, BOOL fallback)
 {
-    id value = [[NSUserDefaults standardUserDefaults] objectForKey:key inDomain:@"com.muirey03.smallsiri"];
+    id value = [[NSUserDefaults standardUserDefaults] objectForKey:key inDomain:domain];
     return value ? [value boolValue] : fallback;
 }
 
@@ -66,10 +70,10 @@ static BOOL getPrefBool(NSString* key, BOOL fallback)
 -(void)becomeKeyWindow
 {
     %orig;
-    if (!hasExpanded)
+    if ((!hasExpanded) && (getPrefBool(turnOnKey, NO)))
     {
         CGFloat yF = isX ? 44 : 10;
-        if (getPrefBool(@"fromBottom", NO))
+        if (getPrefBool(bottomModeKey, NO))
         {
             self.frame = CGRectMake(10, kHeight - 100, kWidth - 20, 90);
         }
@@ -106,7 +110,7 @@ static BOOL getPrefBool(NSString* key, BOOL fallback)
         //dismiss siri
         [UIView animateWithDuration:0.3f animations:^{
             //animate it upwards
-            if (getPrefBool(@"fromBottom", NO))
+            if (getPrefBool(bottomModeKey, NO))
             {
               self.subviews[0].center = CGPointMake(self.subviews[0].center.x, 180);
             }
@@ -171,7 +175,7 @@ static BOOL getPrefBool(NSString* key, BOOL fallback)
 %new
 -(void)didSwipeUp
 {
-    if (getPrefBool(@"fromBottom", NO))
+    if (getPrefBool(bottomModeKey, NO))
     {
         [self expandSiriView];
     }
@@ -184,7 +188,7 @@ static BOOL getPrefBool(NSString* key, BOOL fallback)
 %new
 -(void)didSwipeDown
 {
-    if (getPrefBool(@"fromBottom", NO))
+    if (getPrefBool(bottomModeKey, NO))
     {
         [self closeSiriView];
     }
