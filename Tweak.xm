@@ -70,7 +70,7 @@ static BOOL getPrefBool(NSString* key, BOOL fallback)
 -(void)becomeKeyWindow
 {
     %orig;
-    if ((!hasExpanded) && (getPrefBool(turnOnKey, NO)))
+    if ((!hasExpanded) && (getPrefBool(turnOnKey, YES)))
     {
         CGFloat yF = isX ? 44 : 10;
         if (getPrefBool(bottomModeKey, NO))
