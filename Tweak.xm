@@ -72,7 +72,7 @@ static BOOL getPrefBool(NSString* key, BOOL fallback)
     %orig;
     if ((!hasExpanded) && (getPrefBool(turnOnKey, YES)))
     {
-        CGFloat yF = isX ? 44 : 10;
+        CGFloat yF = isX ? 44 : 20;
         if (getPrefBool(bottomModeKey, NO))
         {
             self.frame = CGRectMake(10, kHeight - 100, kWidth - 20, 90);
